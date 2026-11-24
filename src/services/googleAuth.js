@@ -18,7 +18,12 @@ export async function requestSheetsAccessToken() {
   if (!clientId) throw new Error('VITE_GOOGLE_CLIENT_ID is not configured.')
   await loadGoogleIdentityServices()
   return new Promise((resolve, reject) => {
-    const client = window.google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: `${SHEETS_SCOPE} openid email profile`, callback: (response) => response.error ? reject(new Error(response.error_description || response.error)) : resolve(response.access_token) })
-    client.requestAccessToken({ prompt: '' })
+    const client = window.google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: `${SHEETS_SCOPE} openid email profile`,
+      callback: (response) => response.error ? reject(new Error(response.error_description || response.error)) : resolve(response.access_token),
+      error_callback: (error) => reject(new Error(error.message || 'Google authorization could not open. Allow pop-ups for this site and try again.')),
+    })
+    client.requestAccessToken({ prompt: 'consent' })
   })
 }
