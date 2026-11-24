@@ -1,5 +1,9 @@
 # Kasatria People Visualization
 
+## Live application
+
+https://kasatria-visualization.vercel.app/
+
 ## Current milestone
 
 Google authorization, read-only Sheets access, schema validation, and a 200-person preview are implemented. Three.js layouts come next.
